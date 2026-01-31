@@ -234,20 +234,11 @@ export default function Home() {
         <div className="absolute inset-0 flex items-center justify-center z-10">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight animate-fade-in text-white">
-              <span style={{
-                WebkitTextStroke: '1px rgba(0, 0, 0, 0.2)',
-                color: 'transparent',
-                WebkitBackgroundClip: 'text',
-              }} className="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent relative
+              <span className="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent relative
     drop-shadow-[0_0_14px_rgba(168,85,247,0.7)]">{tArray('hero.title')[0]}</span>{' '}
               {tArray('hero.title')[1]}{' '}
 
               <span
-                style={{
-                  WebkitTextStroke: '1px rgba(0, 0, 0, 0.2)',
-                  color: 'transparent',
-                  WebkitBackgroundClip: 'text',
-                }}
                 className="
     bg-gradient-to-r from-purple-600 to-purple-800
     bg-clip-text text-transparent relative
@@ -302,7 +293,7 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section ref={statsSection.ref} className="relative -top-8 py-16 md:py-24 bg-gradient-to-r from-purple-900 via-purple-600 to-purple-900 rounded-t-3xl">
+      <section ref={statsSection.ref} className="relative -top-8 py-16 md:py-24 bg-gradient-to-r from-purple-800 via-purple-600 to-purple-800 rounded-t-3xl">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-8">
             {stats.map((stat, idx) => (
