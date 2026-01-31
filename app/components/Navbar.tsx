@@ -42,12 +42,12 @@ export default function Navbar() {
         <div className="flex h-16 items-center justify-between px-6">
 
           {/* Logo */}
-          <div className="relative right-4 md:right-0 group cursor-pointer">
+          <div className="relative right-7 md:right-4 group cursor-pointer">
             <Image
               src="/logo.png"
               alt="Stack3"
-              width={125}
-              height={125}
+              width={150}
+              height={150}
               className="
                 transition-all duration-300
                 group-hover:-translate-y-0.5

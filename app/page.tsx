@@ -532,7 +532,7 @@ const technologies = [
                   </div>
                   <div>
                     <p className="font-semibold text-foreground">{t('contact.email')}</p>
-                    <p className="text-gray-600">contato@stack3.com</p>
+                    <p className="text-gray-600">axiondigitalsuport@gmail.com</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -603,9 +603,9 @@ const technologies = [
                 width={250}
                 height={250}
                 priority
-                className='absolute -left-11 -top-[120px]  md:right-11  md:-bottom-10'
+                className='absolute -left-11 -top-[60px] md:right-11  md:-bottom-10'
               />
-              <p className="text-gray-600 text-sm absolute -left-15 top-10 md:left-1  md:-bottom-10">{t('footer.tagline')}</p>
+              <p className="text-gray-600 text-sm absolute -left-15 top-14 md:left-1  md:-bottom-10">{t('footer.tagline')}</p>
             </div>
             <div>
               <h4 className="font-semibold text-foreground mb-4">{t('footer.services')}</h4>
@@ -634,7 +634,7 @@ const technologies = [
 
           <div className="pt-8 flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-gray-600">
-              © 2026 Stack3. {t('footer.rights')}
+              © 2026 Axion. {t('footer.rights')}
             </p>
             <div className="flex gap-6 mt-4 md:mt-0">
               <a href="#" className="text-foreground hover:text-purple-600 transition-colors">
@@ -643,7 +643,7 @@ const technologies = [
               <a href="#" className="text-foreground hover:text-purple-600 transition-colors">
                 <FaLinkedin className="w-5 h-5" />
               </a>
-              <a href="https://www.instagram.com/stack3oficial" className="text-foreground hover:text-purple-600 transition-colors">
+              <a href="https://www.instagram.com/axiondigital01/" className="text-foreground hover:text-purple-600 transition-colors">
                 <FaInstagram className="w-5 h-5" />
               </a>
             </div>

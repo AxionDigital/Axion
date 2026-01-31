@@ -5,7 +5,7 @@ import Navbar from '@/app/components/Navbar';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Stack3 - Design que atrai. Código que sustenta.',
+  title: 'Axion - Seu Site. Seu Sucesso. Nossa Missão.',
   description: 'Agência de programação e design especializada em soluções digitais inovadoras',
 };
 
