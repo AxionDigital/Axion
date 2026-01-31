@@ -1,4 +1,4 @@
-# Stack3 - Design que atrai. Código que sustenta.
+# Axion - Design que atrai. Código que sustenta.
 
 Projeto Next.js completo com landing page moderna para a agência Stack3.
 
@@ -101,3 +101,4 @@ Edite `app/contexts/LanguageContext.tsx` e adicione as chaves de tradução no o
 ## 📝 Licença
 
 MIT
+
