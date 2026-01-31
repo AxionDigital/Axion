@@ -88,17 +88,18 @@ const translations: Translations = {
     'tech.title': 'Tecnologias que Dominamos',
     'tech.subtitle': 'Stack moderno e de alta performance',
 
-    /* TESTIMONIALS */
-    'testimonials.title': 'O que Nossos Clientes Dizem',
-    'testimonials.subtitle':
-      'Histórias reais de sucesso digital',
-    'testimonials.1':
-      'A Stack3 entendeu exatamente o que precisávamos e entregou além do esperado. O resultado foi um produto sólido e bonito.',
-    'testimonials.2':
-      'Equipe extremamente profissional, comunicação clara e prazos respeitados. Recomendo sem pensar duas vezes.',
-    'testimonials.3':
-      'Nos ajudaram a estruturar toda a parte técnica do negócio. Hoje temos uma base forte para escalar.',
+    /* TEMPLATES */
+    'templates.title': 'Modelos Prontos',
+    'templates.subtitle': 'Escolha uma base profissional para acelerar o seu projeto.',
 
+    'templates.item1.name': 'Pizzaria Moderna',
+    'templates.item1.description': 'Um site delicioso e funcional para sua pizzaria, com menu interativo e sistema de pedidos online.',
+    'templates.item1.category': 'Alimentação',
+    'templates.item1.technologies': 'Next.js, React, TailwindCSS, Express.js',
+
+    /* TEMPLATE BUTTONS */
+    'templates.button.view_demo': 'Ver Demo',
+    'templates.button.details': 'Detalhes',
 
     /* FAQ */
     'faq.title': 'Perguntas Frequentes',
@@ -142,6 +143,10 @@ const translations: Translations = {
     'contact.message.placeholder': 'Conte um pouco sobre seu projeto, ideia ou problema...',
     'contact.phone': 'Telefone',
 
+    /* CONTACT FEEDBACK */
+    'contact.success': 'Mensagem enviada com sucesso!',
+    'contact.error': 'Erro ao enviar a mensagem. Tente novamente.',
+    'contact.loading': 'Enviando mensagem...',
 
     /* FOOTER */
     'footer.tagline': 'Design que atrai. Código que sustenta.',
@@ -214,16 +219,18 @@ const translations: Translations = {
     'tech.title': 'Technologies We Master',
     'tech.subtitle': 'Modern and powerful stack',
 
-    'testimonials.title': 'What Clients Say',
-    'testimonials.subtitle': 'Real success stories',
+    /* TEMPLATES */
+    'templates.title': 'Ready-made Templates',
+    'templates.subtitle': 'Choose a professional base to accelerate your project.',
 
-    'testimonials.1':
-      'Stack3 perfectly understood our needs and delivered beyond expectations. Solid and beautiful results.',
-    'testimonials.2':
-      'Highly professional team, clear communication and deadlines respected. Strongly recommended.',
-    'testimonials.3':
-      'They helped us build a strong technical foundation to scale our business.',
+    'templates.item1.name': 'Modern Pizzeria',
+    'templates.item1.description': 'A delicious and functional website for your pizzeria, with an interactive menu and online ordering system.',
+    'templates.item1.category': 'Food & Beverage',
+    'templates.item1.technologies': 'Next.js, React, TailwindCSS, Express.js',
 
+    /* TEMPLATE BUTTONS */
+    'templates.button.view_demo': 'View Demo',
+    'templates.button.details': 'Details',
 
     'faq.title': 'Frequently Asked Questions',
     'faq.subtitle': 'Clear and honest answers',
@@ -259,6 +266,10 @@ const translations: Translations = {
     'contact.message.placeholder': 'Tell us about your project, idea or challenge...',
     'contact.phone': 'Phone',
 
+    /* CONTACT FEEDBACK */
+    'contact.success': 'Message sent successfully!',
+    'contact.error': 'Failed to send message. Please try again.',
+    'contact.loading': 'Sending message...',
 
     'footer.tagline': 'Design that attracts. Code that sustains.',
     'footer.services': 'Services',
@@ -342,17 +353,18 @@ const translations: Translations = {
     'tech.title': 'Tecnologías que Dominamos',
     'tech.subtitle': 'Stack moderno y de alto rendimiento',
 
-    /* TESTIMONIALS */
-    'testimonials.title': 'Lo que Dicen Nuestros Clientes',
-    'testimonials.subtitle':
-      'Historias reales de éxito digital',
+    /* TEMPLATES */
+    'templates.title': 'Plantillas Listas',
+    'templates.subtitle': 'Elige una base profesional para acelerar tu proyecto.',
 
-    'testimonials.1':
-      'Stack3 entendió exactamente lo que necesitábamos y entregó más de lo esperado.',
-    'testimonials.2':
-      'Equipo muy profesional, comunicación clara y plazos cumplidos.',
-    'testimonials.3':
-      'Nos ayudaron a construir una base técnica sólida para escalar el negocio.',
+    'templates.item1.name': 'Pizzería Moderna',
+    'templates.item1.description': 'Un sitio web delicioso y funcional para tu pizzería, con menú interactivo y sistema de pedidos en línea.',
+    'templates.item1.category': 'Alimentos y Bebidas',
+    'templates.item1.technologies': 'Next.js, React, TailwindCSS, Express.js',
+
+    /* TEMPLATE BUTTONS */
+    'templates.button.view_demo': 'Ver Demo',
+    'templates.button.details': 'Detalles',
 
     /* FAQ */
     'faq.title': 'Preguntas Frecuentes',
@@ -396,6 +408,10 @@ const translations: Translations = {
     'contact.message.placeholder': 'Cuéntanos sobre tu proyecto, idea o problema...',
     'contact.phone': 'Teléfono',
 
+    /* CONTACT FEEDBACK */
+    'contact.success': '¡Mensaje enviado con éxito!',
+    'contact.error': 'Error al enviar el mensaje. Inténtalo de nuevo.',
+    'contact.loading': 'Enviando mensaje...',
 
     /* FOOTER */
     'footer.tagline': 'Diseño que atrae. Código que sostiene.',

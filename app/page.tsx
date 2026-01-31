@@ -1,11 +1,15 @@
 'use client'
 
 import { useState, useEffect } from 'react';
-import { ArrowRight, Code2, Palette, Zap, Users, Lightbulb, TrendingUp, CheckCircle, Star, MessageSquare } from 'lucide-react';
+import { useScrollReveal } from './hooks/useScrollReveal';
+import { ArrowRight, Code2, Palette, Zap, Users, Lightbulb, TrendingUp, CheckCircle, MessageSquare, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 import { useLanguage } from './contexts/LanguageContext';
 import { FaInstagram, FaLinkedin, FaTiktok } from 'react-icons/fa';
 import { MdOutlineEmail } from "react-icons/md";
+import emailjs from '@emailjs/browser';
+import toast from 'react-hot-toast';
+import { FormEvent } from 'react';
 import {
   SiReact,
   SiNextdotjs,
@@ -27,6 +31,15 @@ export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  // Hooks para scroll reveal de cada seção
+  const statsSection = useScrollReveal({ threshold: 0.2 });
+  const servicesSection = useScrollReveal({ threshold: 0.2 });
+  const whySection = useScrollReveal({ threshold: 0.2 });
+  const techSection = useScrollReveal({ threshold: 0.2 });
+  const faqSection = useScrollReveal({ threshold: 0.2 });
+  const templatesSection = useScrollReveal({ threshold: 0.2 });
+  const ctaSection = useScrollReveal({ threshold: 0.2 });
+  const contactSection = useScrollReveal({ threshold: 0.2 }); // ← ADICIONE ESTA LINHA
 
   const carouselImages = [
     'https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&w=1600&q=80',
@@ -50,23 +63,34 @@ export default function Home() {
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [userMessage, setUserMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const sendEmail = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const whatsappMessage = `
-Nome: ${userName}
-Email: ${email}
-Mensagem: ${userMessage}
-  `;
+    setLoading(true);
 
-    const url = `https://wa.me/5517992472916?text=${encodeURIComponent(whatsappMessage)}`;
-    window.open(url, '_blank');
-
-    setUserName('');
-    setEmail('');
-    setUserMessage('');
+    emailjs
+      .sendForm(
+        'service_r91wbhq',
+        'template_osfqybp',
+        e.currentTarget,
+        'IO6a8-PMZLaxTi3JW'
+      )
+      .then(() => {
+        toast.success(t('contact.success'));
+        setUserName('');
+        setEmail('');
+        setUserMessage('');
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error(t('contact.error'));
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   /* =========================
@@ -140,40 +164,19 @@ Mensagem: ${userMessage}
     },
   ];
 
-const technologies = [
-  { name: 'React', icon: SiReact, color: '#61DAFB' },
-  { name: 'Next.js', icon: SiNextdotjs, color: '#000000' },
-  { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
-  { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
-  { name: 'NestJS', icon: SiNestjs, color: '#E0234E' },
-  { name: 'Express.js', icon: SiExpress, color: '#444444' },
-  { name: 'PostgreSQL', icon: SiPostgresql, color: '#4169E1' },
-  { name: 'MongoDB', icon: SiMongodb, color: '#47A248' },
-  { name: 'AWS', icon: SiAmazon, color: '#FF9900' },
-  { name: 'Docker', icon: SiDocker, color: '#2496ED' },
-  { name: 'Figma', icon: SiFigma, color: '#F24E1E' },
-  { name: 'Angular', icon: SiAngular, color: '#DD0031' },
-];
-
-  const testimonials = [
-    {
-      name: 'João Silva',
-      company: 'Tech Startup',
-      text: t('testimonials.1'),
-      image: 'https://i.pravatar.cc/150?img=12'
-    },
-    {
-      name: 'Maria Santos',
-      company: 'E-commerce Brasil',
-      text: t('testimonials.2'),
-      image: 'https://i.pravatar.cc/150?img=32'
-    },
-    {
-      name: 'Julia Oliveira',
-      company: 'Consultoria Digital',
-      text: t('testimonials.3'),
-      image: 'https://i.pravatar.cc/150?img=45'
-    },
+  const technologies = [
+    { name: 'React', icon: SiReact, color: '#61DAFB' },
+    { name: 'Next.js', icon: SiNextdotjs, color: '#000000' },
+    { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
+    { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
+    { name: 'NestJS', icon: SiNestjs, color: '#E0234E' },
+    { name: 'Express.js', icon: SiExpress, color: '#444444' },
+    { name: 'PostgreSQL', icon: SiPostgresql, color: '#4169E1' },
+    { name: 'MongoDB', icon: SiMongodb, color: '#47A248' },
+    { name: 'AWS', icon: SiAmazon, color: '#FF9900' },
+    { name: 'Docker', icon: SiDocker, color: '#2496ED' },
+    { name: 'Figma', icon: SiFigma, color: '#F24E1E' },
+    { name: 'Angular', icon: SiAngular, color: '#DD0031' },
   ];
 
   /* =========================
@@ -231,11 +234,29 @@ const technologies = [
         <div className="absolute inset-0 flex items-center justify-center z-10">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight animate-fade-in text-white">
-              <span className="text-purple-600 relative
+              <span style={{
+                WebkitTextStroke: '1px rgba(0, 0, 0, 0.2)',
+                color: 'transparent',
+                WebkitBackgroundClip: 'text',
+              }} className="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent relative
     drop-shadow-[0_0_14px_rgba(168,85,247,0.7)]">{tArray('hero.title')[0]}</span>{' '}
               {tArray('hero.title')[1]}{' '}
-              <span className="text-purple-600 relative
-    drop-shadow-[0_0_14px_rgba(168,85,247,0.7)]">{tArray('hero.title')[2]}</span>{' '}
+
+              <span
+                style={{
+                  WebkitTextStroke: '1px rgba(0, 0, 0, 0.2)',
+                  color: 'transparent',
+                  WebkitBackgroundClip: 'text',
+                }}
+                className="
+    bg-gradient-to-r from-purple-600 to-purple-800
+    bg-clip-text text-transparent relative
+    drop-shadow-[0_0_14px_rgba(168,85,247,0.7)]
+  "
+              >
+                {tArray('hero.title')[2]}
+              </span>{' '}
+
               {tArray('hero.title')[3]}
             </h1>
 
@@ -281,11 +302,14 @@ const technologies = [
       </section>
 
       {/* Stats Section */}
-      <section className="relative -top-8 py-16 md:py-24 bg-gradient-to-r from-purple-600 to-blue-600 rounded-t-3xl">
+      <section ref={statsSection.ref} className="relative -top-8 py-16 md:py-24 bg-gradient-to-r from-purple-900 via-purple-600 to-purple-900 rounded-t-3xl">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-8">
             {stats.map((stat, idx) => (
-              <div key={idx} className="text-center animate-slide-in-up" style={{ animationDelay: `${idx * 0.1}s` }}>
+              <div
+                key={idx}
+                className={`text-center animate-on-scroll delay-${idx + 1} ${statsSection.isVisible ? 'is-visible' : ''}`}
+              >
                 <div className="text-4xl md:text-5xl font-bold text-transparent text-white bg-clip-text mb-2">
                   {stat.value}
                 </div>
@@ -297,11 +321,13 @@ const technologies = [
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-20 md:py-32 bg-background">
+      <section id="services" ref={servicesSection.ref} className="py-20 md:py-32 bg-background">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">{t('services.title')}</h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            <h2 className={`text-4xl md:text-5xl font-bold mb-4 text-foreground animate-on-scroll ${servicesSection.isVisible ? 'is-visible' : ''}`}>
+              {t('services.title')}
+            </h2>
+            <p className={`text-gray-600 text-lg max-w-2xl mx-auto animate-on-scroll delay-1 ${servicesSection.isVisible ? 'is-visible' : ''}`}>
               {t('services.subtitle')}
             </p>
           </div>
@@ -312,8 +338,7 @@ const technologies = [
               return (
                 <div
                   key={idx}
-                  className="p-8 border-border rounded-2xl bg-background card-hover group animate-slide-in-up"
-                  style={{ animationDelay: `${idx * 0.1}s` }}
+                  className={`p-8 border-border rounded-2xl bg-background card-hover group animate-on-scroll delay-${idx + 1} ${servicesSection.isVisible ? 'is-visible' : ''}`}
                 >
                   <div className="mb-4 p-4 bg-purple-100 rounded-lg w-fit group-hover:scale-110 transition-transform duration-300">
                     <Icon className="h-8 w-8 text-purple-600" />
@@ -330,32 +355,32 @@ const technologies = [
         </div>
       </section>
 
+
       {/* Why Choose Us Section */}
-      <section id='about' className="py-20 md:py-32 bg-background2">
+      <section id='about' ref={whySection.ref} className="py-20 md:py-32 bg-background2">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground"> {t('why.title')}</h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            <h2 className={`text-4xl md:text-5xl font-bold mb-4 text-foreground animate-on-scroll ${whySection.isVisible ? 'is-visible' : ''}`}> {t('why.title')}</h2>
+            <p className={`text-gray-600 text-lg max-w-2xl mx-auto animate-on-scroll delay-1 ${whySection.isVisible ? 'is-visible' : ''}`}>
               {t('why.subtitle')}
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 items-stretch">
             {whyChooseUs.map((item, idx) => {
               const Icon = item.icon;
               return (
                 <div
                   key={idx}
-                  className="p-8 bg-background rounded-2xl border-border card-hover animate-slide-in-up"
-                  style={{ animationDelay: `${idx * 0.1}s` }}
+                  className={`flex flex-col h-full p-8 bg-background rounded-2xl border-border card-hover animate-on-scroll delay-${idx + 1} ${whySection.isVisible ? 'is-visible' : ''}`}
                 >
-                  <div className="flex items-start gap-4">
+                  <div className="flex items-start gap-4 flex-grow">
                     <div className="p-3 bg-purple-100 rounded-lg flex-shrink-0">
                       <Icon className="h-6 w-6 text-purple-600" />
                     </div>
-                    <div>
+                    <div className='flex-grow'>
                       <h3 className="text-xl font-bold mb-2 text-foreground">{item.title}</h3>
-                      <p className="text-gray-600">{item.description}</p>
+                      <p className="text-gray-600 leading-6 h-[3rem] line-clamp-2">{item.description}</p>
                     </div>
                   </div>
                 </div>
@@ -366,26 +391,27 @@ const technologies = [
       </section>
 
       {/* Technologies Section */}
-      <section className="py-20 md:py-32 bg-background">
+      <section ref={techSection.ref} className="py-20 md:py-32 bg-background">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">{t('tech.title')}</h2>
-            <p className="text-gray-600 text-lg">{t('tech.subtitle')}</p>
+            <h2 className={`text-4xl md:text-5xl font-bold mb-4 text-foreground animate-on-scroll ${techSection.isVisible ? 'is-visible' : ''}`}>{t('tech.title')}</h2>
+            <p className={`text-gray-600 text-lg animate-on-scroll delay-1 ${techSection.isVisible ? 'is-visible' : ''}`}>{t('tech.subtitle')}</p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {technologies.map((tech) => {
+            {technologies.map((tech, idx) => {
               const Icon = tech.icon;
 
               return (
                 <div
                   key={tech.name}
-                  className="
+                  className={`
           group p-6 rounded-xl border border-border
           bg-background2 text-center
           transition-all duration-300
           hover:-translate-y-1 hover:shadow-lg
-        "
+          animate-on-scroll delay-${(idx % 4) + 1} ${techSection.isVisible ? 'is-visible' : ''}
+        `}
                 >
                   <Icon
                     className="
@@ -407,59 +433,86 @@ const technologies = [
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-20 md:py-32 bg-background2">
+      {/* Templates Section */}
+      <section ref={templatesSection.ref} className="py-20 md:py-32 bg-background2">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">{t('testimonials.title')}</h2>
-            <p className="text-gray-600 text-lg">{t('testimonials.subtitle')}</p>
+            <h2 className={`text-4xl md:text-5xl font-bold mb-4 text-foreground animate-on-scroll ${templatesSection.isVisible ? 'is-visible' : ''}`}>
+              {t('templates.title')}
+            </h2>
+            <p className={`text-gray-600 text-lg animate-on-scroll delay-1 ${templatesSection.isVisible ? 'is-visible' : ''}`}>
+              {t('templates.subtitle')}
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, idx) => (
-              <div
-                key={idx}
-                className="p-8 bg-background rounded-2xl border-border card-hover animate-slide-in-up"
-                style={{ animationDelay: `${idx * 0.1}s` }}
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <img
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full object-cover"
-                  />
-
-                  <div>
-                    <h4 className="font-bold text-foreground">{testimonial.name}</h4>
-                    <p className="text-sm text-gray-600">{testimonial.company}</p>
-                  </div>
+          <div className="flex justify-center">
+            <div className={`w-full max-w-md group overflow-hidden bg-background rounded-2xl border border-border card-hover animate-on-scroll ${templatesSection.isVisible ? 'is-visible' : ''}`}>
+              {/* Imagem do Template */}
+              <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-primary/20 to-secondary/20">
+                <img
+                  src="Pizzaria.png"
+                  alt={t('templates.item1.name')}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <a
+                    href="https://pizzaria-modelo.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-background text-foreground px-6 py-2 rounded-full font-medium transform translate-y-4 group-hover:translate-y-0 transition-transform"
+                  >
+                    {t('templates.button.view_demo')}
+                  </a>
                 </div>
-                <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-gray-600 italic">{testimonial.text}</p>
               </div>
-            ))}
+
+              {/* Conteúdo do Card */}
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-2">
+                  <h4 className="font-bold text-xl text-foreground">
+                    {t('templates.item1.name')}
+                  </h4>
+                  <span className="text-xs font-semibold px-2 py-1 bg-primary/10 text-primary rounded-md">
+                    {t('templates.item1.category')}
+                  </span>
+                </div>
+                <p className="text-gray-600 text-sm mb-6">
+                  {t('templates.item1.description')}
+                </p>
+                <div className="flex items-center justify-between">
+                  <div className="flex gap-2 flex-wrap">
+                    {t('templates.item1.technologies').split(', ').map((tech, i) => (
+                      <span key={i} className="text-[10px] uppercase tracking-wider text-gray-400">
+                        #{tech}
+                      </span>
+                    ))}
+                  </div>
+                  <a
+                    href="https://pizzaria-modelo.vercel.app/"
+                    className="text-primary font-bold text-sm hover:underline flex items-center gap-1 whitespace-nowrap ml-2"
+                  >
+                    {t('templates.button.details')} <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 md:py-32 bg-background">
+      <section ref={faqSection.ref} className="py-20 md:py-32 bg-background">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">{t('faq.title')}</h2>
-            <p className="text-gray-600 text-lg">{t('faq.subtitle')}</p>
+            <h2 className={`text-4xl md:text-5xl font-bold mb-4 text-foreground animate-on-scroll ${faqSection.isVisible ? 'is-visible' : ''}`}>{t('faq.title')}</h2>
+            <p className={`text-gray-600 text-lg animate-on-scroll delay-1 ${faqSection.isVisible ? 'is-visible' : ''}`}>{t('faq.subtitle')}</p>
           </div>
 
           <div className="space-y-4">
             {faqs.map((item, idx) => (
               <div
                 key={idx}
-                className="border-border rounded-lg overflow-hidden animate-slide-in-up"
-                style={{ animationDelay: `${idx * 0.1}s` }}
+                className={`border-border rounded-lg overflow-hidden animate-on-scroll delay-${(idx % 4) + 1} ${faqSection.isVisible ? 'is-visible' : ''}`}
               >
                 <button
                   onClick={() => setExpandedFaq(expandedFaq === idx ? null : idx)}
@@ -485,15 +538,15 @@ const technologies = [
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 md:py-32 bg-gradient-to-r from-purple-600 to-blue-600 relative overflow-hidden">
+      <section ref={ctaSection.ref} className="py-20 md:py-32 bg-gradient-to-r from-purple-600 to-blue-600 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full -mr-48 -mt-48"></div>
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-white rounded-full -ml-48 -mb-48"></div>
         </div>
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">{t('cta.title')}</h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+          <h2 className={`text-4xl md:text-5xl font-bold mb-6 text-white animate-on-scroll ${ctaSection.isVisible ? 'is-visible' : ''}`}>{t('cta.title')}</h2>
+          <p className={`text-xl text-white/90 mb-8 max-w-2xl mx-auto animate-on-scroll delay-1 ${ctaSection.isVisible ? 'is-visible' : ''}`}>
             {t('cta.subtitle')}
           </p>
           <a href={`https://wa.me/5517992472916?text=${encodeURIComponent(
@@ -501,31 +554,35 @@ const technologies = [
           )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-10 py-4 bg-white text-purple-600 font-bold rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 inline-flex items-center justify-center gap-2 mx-auto">
+            className={`px-10 py-4 bg-white text-purple-600 font-bold rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 inline-flex items-center justify-center gap-2 mx-auto animate-on-scroll delay-2 ${ctaSection.isVisible ? 'is-visible' : ''}`}>
             {t('cta.button')}
             <ArrowRight className="w-5 h-5" />
           </a>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-20 md:py-32 bg-background">
+      {/* Contact Section - Com Scroll Reveal */}
+      <section id="contact" ref={contactSection.ref} className="py-20 md:py-32 bg-background">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">{t('contact.title')}</h2>
-            <p className="text-gray-600 text-lg">{t('contact.subtitle')}</p>
+            <h2 className={`text-4xl md:text-5xl font-bold mb-4 text-foreground animate-on-scroll ${contactSection.isVisible ? 'is-visible' : ''}`}>
+              {t('contact.title')}
+            </h2>
+            <p className={`text-gray-600 text-lg animate-on-scroll delay-1 ${contactSection.isVisible ? 'is-visible' : ''}`}>
+              {t('contact.subtitle')}
+            </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
             <div className="space-y-8">
-              <div className="animate-slide-in-left">
+              <div className={`animate-on-scroll animate-slide-left-on-scroll ${contactSection.isVisible ? 'is-visible' : ''}`}>
                 <h3 className="text-2xl font-bold mb-4 text-foreground">{t('contact.form.title')}</h3>
                 <p className="text-gray-600 mb-6">
                   {t('contact.form.desc')}
                 </p>
               </div>
 
-              <div className="space-y-4 animate-slide-in-left" style={{ animationDelay: '0.1s' }}>
+              <div className={`space-y-4 animate-on-scroll animate-slide-left-on-scroll delay-1 ${contactSection.isVisible ? 'is-visible' : ''}`}>
                 <div className="flex items-center gap-4">
                   <div className="p-3 bg-purple-100 rounded-lg">
                     <MdOutlineEmail className="w-6 h-6 text-purple-600" />
@@ -547,11 +604,18 @@ const technologies = [
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4 animate-slide-in-right">
+            <form
+              onSubmit={sendEmail}
+              className={`space-y-4 animate-on-scroll animate-slide-right-on-scroll ${contactSection.isVisible ? 'is-visible' : ''
+                }`}
+            >
               <div>
-                <label className="block font-semibold text-foreground mb-2">{t('contact.name')}</label>
+                <label className="block font-semibold text-foreground mb-2">
+                  {t('contact.name')}
+                </label>
                 <input
                   type="text"
+                  name="user_name"   // 👈 IMPORTANTE
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
                   required
@@ -559,10 +623,14 @@ const technologies = [
                   className="w-full px-4 py-3 bg-background2 border-border rounded-lg focus:border-purple-500 focus:ring-2 focus:ring-purple-500 outline-none transition-all"
                 />
               </div>
+
               <div>
-                <label className="block font-semibold text-foreground mb-2">{t('contact.email')}</label>
+                <label className="block font-semibold text-foreground mb-2">
+                  {t('contact.email')}
+                </label>
                 <input
                   type="email"
+                  name="user_email"   // 👈 IMPORTANTE
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -570,9 +638,13 @@ const technologies = [
                   className="w-full px-4 py-3 bg-background2 border-border rounded-lg focus:border-purple-500 focus:ring-2 focus:ring-purple-500 outline-none transition-all"
                 />
               </div>
+
               <div>
-                <label className="block font-semibold text-foreground mb-2">{t('contact.message')}</label>
+                <label className="block font-semibold text-foreground mb-2">
+                  {t('contact.message')}
+                </label>
                 <textarea
+                  name="message"   // 👈 IMPORTANTE
                   value={userMessage}
                   onChange={(e) => setUserMessage(e.target.value)}
                   required
@@ -581,10 +653,28 @@ const technologies = [
                   className="w-full px-4 py-3 bg-background2 border-border rounded-lg focus:border-purple-500 focus:ring-2 focus:ring-purple-500 outline-none transition-all resize-none"
                 />
               </div>
-              <button type="submit" className="btn-primary w-full flex items-center justify-center gap-2">
-                {t('contact.send')}
-                <ArrowRight className="w-5 h-5" />
+
+              <button
+                type="submit"
+                disabled={loading}
+                className={`
+    btn-primary w-full flex items-center justify-center gap-2
+    ${loading ? 'opacity-60 cursor-not-allowed' : ''}
+  `}
+              >
+                {loading ? (
+                  <>
+                    <span className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full" />
+                    {t('contact.loading')}
+                  </>
+                ) : (
+                  <>
+                    {t('contact.send')}
+                    <ArrowRight className="w-5 h-5" />
+                  </>
+                )}
               </button>
+
             </form>
           </div>
         </div>

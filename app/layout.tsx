@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { ThemeProvider } from '@/app/components/theme-provider';
 import { LanguageProvider } from '@/app/contexts/LanguageContext';
 import Navbar from '@/app/components/Navbar';
+import { Toaster } from 'react-hot-toast';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -27,6 +28,7 @@ export default function RootLayout({
           <LanguageProvider>
             <Navbar />
             {children}
+            <Toaster position="top-right" />
           </LanguageProvider>
         </ThemeProvider>
       </body>

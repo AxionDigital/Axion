@@ -107,7 +107,7 @@
   }
 
   .btn-primary {
-    @apply px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-colors transition-shadow transition-transform duration-300;;
+    @apply px-8 py-3 bg-gradient-to-r from-purple-700 to-purple-900 hover:from-purple-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-colors transition-shadow transition-transform duration-300;;
   }
 
   .btn-secondary {
@@ -193,5 +193,110 @@
 .animate-fade-up {
   animation: fade-up 0.8s ease-out forwards;
 }
+
+/* Animações para Scroll Reveal */
+
+/* Fade In */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Slide In Up */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slide In Left */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Slide In Right */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Scale In */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Classes para aplicar as animações */
+
+/* Elemento visível - aplica a animação */
+.animate-on-scroll {
+  opacity: 0;
+}
+
+.animate-on-scroll.is-visible {
+  animation: slideInUp 0.6s ease-out forwards;
+}
+
+.animate-on-scroll.is-visible.delay-1 {
+  animation-delay: 0.1s;
+}
+
+.animate-on-scroll.is-visible.delay-2 {
+  animation-delay: 0.2s;
+}
+
+.animate-on-scroll.is-visible.delay-3 {
+  animation-delay: 0.3s;
+}
+
+.animate-on-scroll.is-visible.delay-4 {
+  animation-delay: 0.4s;
+}
+
+/* Variações de animação */
+.animate-fade-on-scroll.is-visible {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-scale-on-scroll.is-visible {
+  animation: scaleIn 0.6s ease-out forwards;
+}
+
+.animate-slide-left-on-scroll.is-visible {
+  animation: slideInLeft 0.6s ease-out forwards;
+}
+
+.animate-slide-right-on-scroll.is-visible {
+  animation: slideInRight 0.6s ease-out forwards;
+}
+
 
 
